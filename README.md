@@ -20,7 +20,7 @@ Right now the repository has the following functionality
 1. Clone the repository using the following command:
 
     ```bash
-       git clone https://github.com/omadoyeabraham/laravel-templates.git
+       git clone https://github.com/omadoyeabraham/laravel-template-api.git
     ```
     
 2. Configure the project using the following command:
@@ -29,12 +29,12 @@ Right now the repository has the following functionality
      ```  
      The command does the following:
      * Installs composer dependencies
-     * Creates a .env file with the content `APP_ENV=local`. 
+     * Creates a .env file with the content `local`. 
      This will tell the app which environment the app will run
-     * Creates a copies the contents from .env.example to .env.local
+     * Creates a copies the contents from ./envs/example/.env to ./envs/local/.env
      * Generates the laravel app key using `php artisan key:generate`
         
-3. Ensure that you fill the variables in `.env.local` with your credentials and values.    
+3. Ensure that you fill the variables in `/envs/local/.env` with your credentials and values.    
     
 4. Ensure you have docker installed and running.
 
@@ -42,11 +42,11 @@ Right now the repository has the following functionality
     credentials as necessary.
     
 7. If you changed the database and redis credentials/ports in `docker-compose.yml` ensure
-    you change it in `.env.local` also. 
+    you change it in `/envs/local/.env` also. 
     
-    Note that the ports in `.env.local` will be the ports exposed by docker
+    Note that the ports in `/envs/local/,env` will be the ports exposed by docker
     e.g. if the postgres image has port credentials `"3434:5432"`, then use `3434` in the
-    `.env.local` file.    
+    `/envs/local/.env` file.    
     
 8. Spin up the app, postgresql and redis containers using the following command:
     ```bash
