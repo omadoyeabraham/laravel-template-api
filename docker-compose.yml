@@ -1,0 +1,43 @@
+version: '3'
+
+# Volume used to persist data in postgresql database
+volumes:
+  postgres-db-data-volume:
+    driver: local
+
+services:
+
+  #  Nginx web server + php7.3 fpm
+  web_server_with_app_code:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www
+    ports:
+      - "9596:80"
+    links:
+      - postgresql-database
+      - redis_cache
+    environment:
+      - "APP_NAME=five-things-api"
+      - "DATABASE_URL=postgres://fiveThingsUser:fiveThingsPassword@postgresql-database:5432/fiveThingsDB"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis_cache"
+
+  # Database
+  postgresql-database:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "fiveThingsPassword"
+      POSTGRES_USER: "fiveThingsUser"
+      POSTGRES_DB: "fiveThingsDB"
+    ports:
+      - "5435:5432"
+
+ # Redis cache only used in development and testing
+  redis_cache:
+    image: redis:3.0
+    ports:
+      - "6372:6379"
